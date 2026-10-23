@@ -1,14 +1,55 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { WORDS } from '../lib/words';
 
 function TypingArea() {
+  const [typed, setTyped] = useState<string>('');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const text = WORDS.join(' ');
+  console.log(typed);
+
+  useEffect(() => {
+    containerRef.current?.focus();
+  }, []);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      setTyped(prev => prev.slice(0, -1));
+    } else if (e.key.length === 1) {
+      setTyped(prev => prev + e.key);
+    }
+  };
+  const getCharClass = (i: number) => {
+    if (i < typed.length) {
+      return text[i] === typed[i] ? 'text-grn' : 'text-red-400';
+    }
+    if (i === typed.length) {
+      return 'text-accent'; // текущая
+    }
+    return 'text-text-secondary'; // впереди
+  };
   return (
-    <div className="bg-bg-section p-8 font-mono text-2xl rounded-2xl text-text-secondary border-border-section border">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae modi qui
-      quo, aperiam distinctio earum harum. Fugiat, ad maxime deleniti facilis
-      dolor sequi hic numquam illum. Non impedit amet voluptatem. Lorem ipsum
-      dolor sit amet consectetur, adipisicing elit. Beatae modi qui quo, aperiam
-      distinctio earum harum. Fugiat, ad maxime deleniti facilis dolor sequi hic
-      numquam illum. Non impedit amet voluptatem.
+    <div
+      ref={containerRef}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      className="bg-bg-section p-8 font-mono text-2xl rounded-2xl text-text-secondary border-border-section border flex flex-wrap gap-2 focus:outline-none focus:border-accent/50"
+    >
+      {WORDS.map((word, wordIndex) => {
+        const startIndex =
+          WORDS.slice(0, wordIndex).join(' ').length + (wordIndex > 0 ? 1 : 0);
+
+        return (
+          <span key={wordIndex}>
+            {word.split('').map((char, charIndex) => (
+              <span
+                key={charIndex}
+                className={getCharClass(startIndex + charIndex)}
+              >
+                {char}
+              </span>
+            ))}
+          </span>
+        );
+      })}
     </div>
   );
 }

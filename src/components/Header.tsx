@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="h-15 flex items-stretch  justify-between max-w-7xl mx-auto border-b border-b-border-section  mb-15">
+    <header className="h-15 flex items-stretch  justify-between max-w-5xl mx-auto border-b border-b-border-section  mb-15">
       <div className="flex gap-12">
         <NavLink to="/" className="text-white flex items-center gap-2">
           <img src="/logo.png" alt="Typebolt" className="w-8 h-8"></img>

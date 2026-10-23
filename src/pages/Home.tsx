@@ -3,7 +3,7 @@ import TypingArea from '../components/TypingArea';
 
 function Home() {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-5xl mx-auto">
       <div className="grid grid-cols-4 mb-10 font-mono">
         <div className="col-span-1 flex flex-col items-center justify-center">
           <span className="font-medium text-sm text-text-secondary">TIME</span>
