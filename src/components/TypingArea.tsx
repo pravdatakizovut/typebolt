@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { WORDS } from '../lib/words';
+import { Cigarette } from 'lucide-react';
 
 function TypingArea() {
   const [typed, setTyped] = useState<string>('');
@@ -44,6 +45,9 @@ function TypingArea() {
                 key={charIndex}
                 className={getCharClass(startIndex + charIndex)}
               >
+                {startIndex + charIndex === typed.length && (
+                  <span className="inline-block w-[3px] h-6 bg-white animate-pulse " />
+                )}
                 {char}
               </span>
             ))}
